@@ -1,7 +1,7 @@
 #include <16f877a.h>
 #fuses XT
 #use delay(clock=4M)
-//! #include <stdbool.h> | This is not necessary
+//! #include <stdbool.h> | Ya no es necesario
 /*******************/
 #byte trisa = 0x85
 #byte porta = 0x05
@@ -25,20 +25,20 @@
 #define LCD_DATA7       PIN_D7
 #include <lcd.c>
 /*******************/
-int key = 12; //* Keypad (only keys) - Max value: 12
-int digit; //* Numeric value
+int key = 12; //* Keypad (solo para saber que tecla es) - Valor maximo 11
+int digit; //* Valor numerico de la tecla presionada
 int ONES = 0; // Unidades
 int TENS = 0; // Decimas
-int digitFix; //* Fix digits - Para tomar 2 digitos
-//// bool motorStatus = false; //? false = OFF / true = ON
-//// byte const motorSteps[5] = {0b00110000, 0b01100000, 0b11000000, 0b10010000, };
+int digitFix; //* Fix digits - Usado para tomar los dos digitos
+//// bool motorStatus = false; //? false = OFF / true = ON || Antigua variable, no se usa
+//// byte const motorSteps[5] = {0b00110000, 0b01100000, 0b11000000, 0b10010000, }; || Antiguo array, no se usa
 /*******************/
-void keyDetection(){ //* Used to detect the key pressed
+void keyDetection(){ //* Usado para detectar la tecla presionada
     C1 = 1;
-    if (F1 == 1){key = 1; digit = 1; while(F1 == 1){};} 
+    if (F1 == 1){key = 1; digit = 1; while(F1 == 1){};}
     if (F2 == 1){key = 4; digit = 4; while(F2 == 1){};}
     if (F3 == 1){key = 7; digit = 7; while(F3 == 1){};}
-    if (F4 == 1){key = 10;} // "*" - Clear/Stop
+    if (F4 == 1){key = 10;} // "*" -> Clear/Stop | Limpiar/Parar
     C1 = 0;
 
     C2 = 1;
@@ -52,89 +52,89 @@ void keyDetection(){ //* Used to detect the key pressed
     if (F1 == 1){key = 3; digit = 3; while(F1 == 1){};}
     if (F2 == 1){key = 6; digit = 6; while(F2 == 1){};}
     if (F3 == 1){key = 9; digit = 9; while(F3 == 1){};}
-    if (F4 == 1){key = 11; while(F4 == 1){};} // "#" - Start
+    if (F4 == 1){key = 11; while(F4 == 1){};} // "#" -> Start | Iniciar
     C3 = 0;
 }
 
-//! void motorControl(){ //* Used to control the motor | This is the old function
+//! void motorControl(){ //* Usado para controlar el motor | Funcion antigua, no se usa
 //!    for(int A=0; A < 5; A++){ // Detectar el número de pasos
 //!        portc = motorSteps[A];
 //!        delay_ms(80);
 //!    }
 //!}
 
-void motorControl(){ //* Used to control the motor
-    porta = 0b00000010;
+void motorControl(){ //* Usado para controlar el motor
+    porta = 0b00000010; // Manda señal a A6
     delay_ms(80);
-    porta = 0b00000001;
+    porta = 0b00000001; // Manda señal a A
     delay_ms(80);
 }
 
 void main(){
     trisa = 0b00000000;
     trisb = 0b00001111;
-    porta = 0x00;
+    porta = 0x00; // Empieza con el motor apagado
 
-    lcd_init(); // Initialize the LCD
+    lcd_init(); // Inicializar el LCD
 
-    // Welcome message
+    // Mensaje de bienvenida
     lcd_gotoxy(1, 1);
     lcd_putc("  ENCENDIDO DE  ");
     lcd_gotoxy(1, 2);
     lcd_putc("    MOTOR DC    ");
-    delay_ms(3000); // 3 sec
-    lcd_putc("\f"); // After 3 sec, clear the LCD
+    delay_ms(3000); // 3 segundos
+    lcd_putc("\f"); // Limpiar el LCD
 
     while(true){
-        keyDetection(); // Function to detect the key pressed
+        keyDetection(); // Llamamos la funcion para detectar la tecla presionada
         
-        if(key < 10){ //* If the key pressed is a number
+        if(key < 10){ //* Se activa si la tecla presionada es un número
             TENS = ONES;
             delay_ms(100);
             ONES = digit;
             delay_ms(100);
 
-            digitFix = (TENS * 10) + ONES;
+            digitFix = (TENS * 10) + ONES; //* Para tomar los dos digitos
         } 
-        if(key == 11){ //* 11 = "#" -> Start
-            motorControl(); // Function to start the motor
-            lcd_putc("\f"); // Clear the LCD
+        if(key == 11){ //* 11 = "#" -> Start | Iniciar
+            motorControl(); // Llamamos la funcion para controlar el motor
+            lcd_putc("\f"); // Limpiamos el LCD
 
-            int stableDigit = digitFix; //* To keep the value of digitFix
+            int stableDigit = digitFix; //* Para mantener el valor de digitFix
             
-            for(int i=0; i < stableDigit; i++){ // For loop to count down
-                keyDetection(); // Calling it again to detect the key pressed
+            for(int i=0; i < stableDigit; i++){ // For loop para contar el tiempo
+                keyDetection(); // Llamando la funcion de nuevo
                 
-                if(key == 10){break;} //* 10 = "*" -> Stop
+                if(key == 10){break;} //* 10 = "*" -> Stop | Parar
 
                 lcd_gotoxy(1, 1);
                 printf(lcd_putc, "Motor: On");
                 lcd_gotoxy(1, 2);
-                printf(lcd_putc, "Tiempo: %02u", digitFix);
+                printf(lcd_putc, "Tiempo: %02u", digitFix); // Ver: https://i.imgur.com/FZfBf59.png
 
                 digitFix--;
-                delay_ms(920); // 920(For this case) + 80(From motorControl) = 1 sec
+                delay_ms(920); // 920(De este for loop) + 80(De la funcion motorControl) = 1 segundo
             }
 
-            //* Reset the values after the loop
+            //* Resetear los valores despues del loop para evitar errores en el lcd
             ONES = 0;
             TENS = 0;
             digitFix = 0;
 
-            porta = 0; // Reset the motor
+            porta = 0; // Apagamos el motor
         }
-        if(key == 10){ //* 10 = "*" -> Clear
+        if(key == 10){ //* 10 = "*" -> Clear | Limpiar
             TENS = 0;
             ONES = 0;
             digitFix = 0;
         }
 
-        // Default message
+        // Mensaje por defecto
         lcd_gotoxy(1, 1);
         lcd_putc("Motor: Off");
         lcd_gotoxy(1, 2);
         printf(lcd_putc, "Tiempo: %02u", digitFix);
 
-        key = 12; // Reset the key
+        key = 12; // Resetear el valor de la tecla
     }
 }
