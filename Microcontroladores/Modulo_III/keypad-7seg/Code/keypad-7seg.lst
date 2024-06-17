@@ -1,0 +1,245 @@
+CCS PCM C Compiler, Version 5.015, 5967               14-Jun-24 16:49
+
+               Filename:   D:\Universidad\Microcontroladores\Modulo_III\keypad-7seg\Code\keypad-7seg.lst
+
+               ROM used:   154 words (2%)
+                           Largest free fragment is 2048
+               RAM used:   6 (2%) at main() level
+                           6 (2%) worst case
+               Stack used: 1 locations
+               Stack size: 8
+
+*
+0000:  MOVLW  00
+0001:  MOVWF  0A
+0002:  GOTO   019
+0003:  NOP
+.................... #include <16f877a.h> 
+.................... //////////// Standard Header file for the PIC16F877A device //////////////// 
+.................... /////////////////////////////////////////////////////////////////////////// 
+.................... ////        (C) Copyright 1996, 2013 Custom Computer Services          //// 
+.................... //// This source code may only be used by licensed users of the CCS C  //// 
+.................... //// compiler.  This source code may only be distributed to other      //// 
+.................... //// licensed users of the CCS C compiler.  No other use, reproduction //// 
+.................... //// or distribution is permitted without written permission.          //// 
+.................... //// Derivative programs created using this software in object code    //// 
+.................... //// form are not restricted in any way.                               //// 
+.................... /////////////////////////////////////////////////////////////////////////// 
+.................... #device PIC16F877A 
+....................  
+.................... #list 
+....................  
+.................... #fuses XT 
+.................... #use delay(clock=4M) 
+0004:  MOVLW  21
+0005:  MOVWF  04
+0006:  BCF    03.7
+0007:  MOVF   00,W
+0008:  BTFSC  03.2
+0009:  GOTO   018
+000A:  MOVLW  01
+000B:  MOVWF  78
+000C:  CLRF   77
+000D:  DECFSZ 77,F
+000E:  GOTO   00D
+000F:  DECFSZ 78,F
+0010:  GOTO   00C
+0011:  MOVLW  4A
+0012:  MOVWF  77
+0013:  DECFSZ 77,F
+0014:  GOTO   013
+0015:  GOTO   016
+0016:  DECFSZ 00,F
+0017:  GOTO   00A
+0018:  RETURN
+.................... /*******************/ 
+.................... #byte trisb = 0x86 
+.................... #byte portb = 0x06 
+.................... #byte trisc = 0x87 
+.................... #byte portc = 0x07 
+.................... #byte trisd = 0x88 
+.................... #byte portd = 0x08 
+.................... /*******************/ 
+.................... #bit C1 = portc.0 
+.................... #bit C2 = portc.1 
+.................... #bit C3 = portc.2 
+.................... #bit F1 = portd.4 
+.................... #bit F2 = portd.5 
+.................... #bit F3 = portd.6 
+.................... #bit F4 = portd.7 
+.................... /*******************/ 
+.................... void main(){ 
+0019:  MOVF   03,W
+001A:  ANDLW  1F
+001B:  MOVWF  03
+001C:  BSF    03.5
+001D:  BSF    1F.0
+001E:  BSF    1F.1
+001F:  BSF    1F.2
+0020:  BCF    1F.3
+0021:  MOVLW  07
+0022:  MOVWF  1C
+0023:  BCF    03.7
+....................     trisb = 0b00000000; 
+0024:  CLRF   06
+....................     trisc = 0b00000111; 
+0025:  MOVLW  07
+0026:  MOVWF  07
+....................     trisd = 0b00000000; 
+0027:  CLRF   08
+....................     portb = 0b11111111; 
+0028:  MOVLW  FF
+0029:  BCF    03.5
+002A:  MOVWF  06
+....................  
+....................     while(true){ 
+....................         portd = 0b11100000; 
+002B:  MOVLW  E0
+002C:  MOVWF  08
+....................         delay_ms(10); 
+002D:  MOVLW  0A
+002E:  MOVWF  21
+002F:  CALL   004
+....................         if(C1 == 0){portb = 0b11111001;} 
+0030:  BTFSC  07.0
+0031:  GOTO   034
+0032:  MOVLW  F9
+0033:  MOVWF  06
+....................         delay_ms(10); 
+0034:  MOVLW  0A
+0035:  MOVWF  21
+0036:  CALL   004
+....................         if(C2 == 0){portb = 0b10100100;} 
+0037:  BTFSC  07.1
+0038:  GOTO   03B
+0039:  MOVLW  A4
+003A:  MOVWF  06
+....................         delay_ms(10); 
+003B:  MOVLW  0A
+003C:  MOVWF  21
+003D:  CALL   004
+....................         if(C3 == 0){portb = 0b10110000;} 
+003E:  BTFSC  07.2
+003F:  GOTO   042
+0040:  MOVLW  B0
+0041:  MOVWF  06
+....................         delay_ms(10); 
+0042:  MOVLW  0A
+0043:  MOVWF  21
+0044:  CALL   004
+....................         portd = 0b11010000; 
+0045:  MOVLW  D0
+0046:  MOVWF  08
+....................         delay_ms(10); 
+0047:  MOVLW  0A
+0048:  MOVWF  21
+0049:  CALL   004
+....................         if(C1 == 0){portb = 0b10011001;} 
+004A:  BTFSC  07.0
+004B:  GOTO   04E
+004C:  MOVLW  99
+004D:  MOVWF  06
+....................         delay_ms(10); 
+004E:  MOVLW  0A
+004F:  MOVWF  21
+0050:  CALL   004
+....................         if(C2 == 0){portb = 0b10010010;} 
+0051:  BTFSC  07.1
+0052:  GOTO   055
+0053:  MOVLW  92
+0054:  MOVWF  06
+....................         delay_ms(10); 
+0055:  MOVLW  0A
+0056:  MOVWF  21
+0057:  CALL   004
+....................         if(C3 == 0){portb = 0b10000010;} 
+0058:  BTFSC  07.2
+0059:  GOTO   05C
+005A:  MOVLW  82
+005B:  MOVWF  06
+....................         delay_ms(10); 
+005C:  MOVLW  0A
+005D:  MOVWF  21
+005E:  CALL   004
+....................         portd = 0b10110000; 
+005F:  MOVLW  B0
+0060:  MOVWF  08
+....................         delay_ms(10); 
+0061:  MOVLW  0A
+0062:  MOVWF  21
+0063:  CALL   004
+....................         if(C1 == 0){portb = 0b11111000;} 
+0064:  BTFSC  07.0
+0065:  GOTO   068
+0066:  MOVLW  F8
+0067:  MOVWF  06
+....................         delay_ms(10); 
+0068:  MOVLW  0A
+0069:  MOVWF  21
+006A:  CALL   004
+....................         if(C2 == 0){portb = 0b10000000;} 
+006B:  BTFSC  07.1
+006C:  GOTO   06F
+006D:  MOVLW  80
+006E:  MOVWF  06
+....................         delay_ms(10); 
+006F:  MOVLW  0A
+0070:  MOVWF  21
+0071:  CALL   004
+....................         if(C3 == 0){portb = 0b10011000;} 
+0072:  BTFSC  07.2
+0073:  GOTO   076
+0074:  MOVLW  98
+0075:  MOVWF  06
+....................         delay_ms(10); 
+0076:  MOVLW  0A
+0077:  MOVWF  21
+0078:  CALL   004
+....................         portd = 0b01110000; 
+0079:  MOVLW  70
+007A:  MOVWF  08
+....................         delay_ms(10); 
+007B:  MOVLW  0A
+007C:  MOVWF  21
+007D:  CALL   004
+....................         if(C1 == 0){portb = 0b10001000;} 
+007E:  BTFSC  07.0
+007F:  GOTO   082
+0080:  MOVLW  88
+0081:  MOVWF  06
+....................         delay_ms(10); 
+0082:  MOVLW  0A
+0083:  MOVWF  21
+0084:  CALL   004
+....................         if(C2 == 0){portb = 0b10000011;} 
+0085:  BTFSC  07.1
+0086:  GOTO   089
+0087:  MOVLW  83
+0088:  MOVWF  06
+....................         delay_ms(10); 
+0089:  MOVLW  0A
+008A:  MOVWF  21
+008B:  CALL   004
+....................         if(C3 == 0){portb = 0b11000110;} 
+008C:  BTFSC  07.2
+008D:  GOTO   090
+008E:  MOVLW  C6
+008F:  MOVWF  06
+....................         delay_ms(10); 
+0090:  MOVLW  0A
+0091:  MOVWF  21
+0092:  CALL   004
+....................         portd = 0b11110000; 
+0093:  MOVLW  F0
+0094:  MOVWF  08
+....................         delay_ms(10); 
+0095:  MOVLW  0A
+0096:  MOVWF  21
+0097:  CALL   004
+0098:  GOTO   02B
+....................     } 
+.................... } 
+0099:  SLEEP
+
+Configuration Fuses:
+   Word  1: 3F71   XT NOWDT PUT BROWNOUT NOLVP NOCPD NOWRT NODEBUG NOPROTECT

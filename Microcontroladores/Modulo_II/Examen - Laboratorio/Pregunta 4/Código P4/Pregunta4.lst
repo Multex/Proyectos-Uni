@@ -1,0 +1,205 @@
+CCS PCM C Compiler, Version 5.015, 5967               14-Jun.-23 01:47
+
+               Filename:   C:\Users\aquin\OneDrive\Documentos\Proyectos Pic\Módulo II\Examen - Laboratorio\Pregunta 4\Código P4\Pregunta4.lst
+
+               ROM used:   126 words (2%)
+                           Largest free fragment is 2048
+               RAM used:   19 (5%) at main() level
+                           20 (5%) worst case
+               Stack used: 1 locations
+               Stack size: 8
+
+*
+0000:  MOVLW  00
+0001:  MOVWF  0A
+0002:  GOTO   019
+0003:  NOP
+.................... #include <16f877a.h> 
+.................... //////////// Standard Header file for the PIC16F877A device //////////////// 
+.................... /////////////////////////////////////////////////////////////////////////// 
+.................... ////        (C) Copyright 1996, 2013 Custom Computer Services          //// 
+.................... //// This source code may only be used by licensed users of the CCS C  //// 
+.................... //// compiler.  This source code may only be distributed to other      //// 
+.................... //// licensed users of the CCS C compiler.  No other use, reproduction //// 
+.................... //// or distribution is permitted without written permission.          //// 
+.................... //// Derivative programs created using this software in object code    //// 
+.................... //// form are not restricted in any way.                               //// 
+.................... /////////////////////////////////////////////////////////////////////////// 
+.................... #device PIC16F877A 
+....................  
+.................... #list 
+....................  
+.................... #fuses xt 
+.................... #use delay(clock = 4M) 
+0004:  MOVLW  2F
+0005:  MOVWF  04
+0006:  BCF    03.7
+0007:  MOVF   00,W
+0008:  BTFSC  03.2
+0009:  GOTO   018
+000A:  MOVLW  01
+000B:  MOVWF  78
+000C:  CLRF   77
+000D:  DECFSZ 77,F
+000E:  GOTO   00D
+000F:  DECFSZ 78,F
+0010:  GOTO   00C
+0011:  MOVLW  4A
+0012:  MOVWF  77
+0013:  DECFSZ 77,F
+0014:  GOTO   013
+0015:  GOTO   016
+0016:  DECFSZ 00,F
+0017:  GOTO   00A
+0018:  RETURN
+.................... #byte trisb = 0x86 
+.................... #byte trisc = 0x87 
+.................... #byte portb = 0x06 
+.................... #byte portc = 0x07 
+.................... #bit T2 = portc.1 
+.................... #bit T3 = portc.2 
+.................... #bit T4 = portc.3 
+....................  
+.................... void main() { 
+0019:  MOVF   03,W
+001A:  ANDLW  1F
+001B:  MOVWF  03
+001C:  BSF    03.5
+001D:  BSF    1F.0
+001E:  BSF    1F.1
+001F:  BSF    1F.2
+0020:  BCF    1F.3
+0021:  MOVLW  07
+0022:  MOVWF  1C
+0023:  BCF    03.7
+....................     
+....................    int datos[10] = {0b11000000, 0b11111001, 0b10100100, 0b10110000, 0b10011001, 
+....................                     0b10010010, 0b10000010, 0b11111000, 0b10000000, 0b10010000}; 
+0024:  MOVLW  C0
+0025:  BCF    03.5
+0026:  MOVWF  21
+0027:  MOVLW  F9
+0028:  MOVWF  22
+0029:  MOVLW  A4
+002A:  MOVWF  23
+002B:  MOVLW  B0
+002C:  MOVWF  24
+002D:  MOVLW  99
+002E:  MOVWF  25
+002F:  MOVLW  92
+0030:  MOVWF  26
+0031:  MOVLW  82
+0032:  MOVWF  27
+0033:  MOVLW  F8
+0034:  MOVWF  28
+0035:  MOVLW  80
+0036:  MOVWF  29
+0037:  MOVLW  90
+0038:  MOVWF  2A
+....................    int i; 
+....................    int j; 
+....................    int k; 
+....................    int t; 
+....................     
+....................    trisb = 0b00000000; 
+0039:  BSF    03.5
+003A:  CLRF   06
+....................    trisc = 0b00000000; 
+003B:  CLRF   07
+....................    portb = 0b00000000; 
+003C:  BCF    03.5
+003D:  CLRF   06
+....................    portc = 0b00000000; 
+003E:  CLRF   07
+....................     
+....................    while(true){ 
+....................       for(k=0; k<10; k++) { 
+003F:  CLRF   2D
+0040:  MOVF   2D,W
+0041:  SUBLW  09
+0042:  BTFSS  03.0
+0043:  GOTO   07C
+....................          for(j=0; j<10; j++) { 
+0044:  CLRF   2C
+0045:  MOVF   2C,W
+0046:  SUBLW  09
+0047:  BTFSS  03.0
+0048:  GOTO   07A
+....................             for(i=0; i<10; i++) { 
+0049:  CLRF   2B
+004A:  MOVF   2B,W
+004B:  SUBLW  09
+004C:  BTFSS  03.0
+004D:  GOTO   078
+....................                for(t=0; t<10; t++) { 
+004E:  CLRF   2E
+004F:  MOVF   2E,W
+0050:  SUBLW  09
+0051:  BTFSS  03.0
+0052:  GOTO   076
+....................                   T4 = 1; 
+0053:  BSF    07.3
+....................                   portb = datos[i]; 
+0054:  MOVLW  21
+0055:  ADDWF  2B,W
+0056:  MOVWF  04
+0057:  BCF    03.7
+0058:  MOVF   00,W
+0059:  MOVWF  06
+....................                   delay_ms(25); 
+005A:  MOVLW  19
+005B:  MOVWF  2F
+005C:  CALL   004
+....................                   T4 = 0; 
+005D:  BCF    07.3
+....................                    
+....................                   T3 = 1; 
+005E:  BSF    07.2
+....................                   portb = datos[j]; 
+005F:  MOVLW  21
+0060:  ADDWF  2C,W
+0061:  MOVWF  04
+0062:  BCF    03.7
+0063:  MOVF   00,W
+0064:  MOVWF  06
+....................                   delay_ms(25); 
+0065:  MOVLW  19
+0066:  MOVWF  2F
+0067:  CALL   004
+....................                   T3 = 0; 
+0068:  BCF    07.2
+....................                    
+....................                   T2 = 1; 
+0069:  BSF    07.1
+....................                   portb = datos[k]; 
+006A:  MOVLW  21
+006B:  ADDWF  2D,W
+006C:  MOVWF  04
+006D:  BCF    03.7
+006E:  MOVF   00,W
+006F:  MOVWF  06
+....................                   delay_ms(25); 
+0070:  MOVLW  19
+0071:  MOVWF  2F
+0072:  CALL   004
+....................                   T2 = 0; 
+0073:  BCF    07.1
+0074:  INCF   2E,F
+0075:  GOTO   04F
+....................                } 
+0076:  INCF   2B,F
+0077:  GOTO   04A
+....................             } 
+0078:  INCF   2C,F
+0079:  GOTO   045
+....................          } 
+007A:  INCF   2D,F
+007B:  GOTO   040
+....................       } 
+007C:  GOTO   03F
+....................    } 
+.................... } 
+007D:  SLEEP
+
+Configuration Fuses:
+   Word  1: 3F71   XT NOWDT PUT BROWNOUT NOLVP NOCPD NOWRT NODEBUG NOPROTECT

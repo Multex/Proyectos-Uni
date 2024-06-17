@@ -1,0 +1,275 @@
+CCS PCM C Compiler, Version 5.015, 5967               26-Jun.-23 15:12
+
+               Filename:   C:\Users\aquin\OneDrive\Documentos\C5_Archivos Pic\Módulo II\Examen Módulo II\Código\ExamenM2.lst
+
+               ROM used:   198 words (2%)
+                           Largest free fragment is 2048
+               RAM used:   6 (2%) at main() level
+                           23 (6%) worst case
+               Stack used: 1 locations
+               Stack size: 8
+
+*
+0000:  MOVLW  00
+0001:  MOVWF  0A
+0002:  GOTO   055
+0003:  NOP
+.................... #include <16f877a.h> 
+.................... //////////// Standard Header file for the PIC16F877A device //////////////// 
+.................... /////////////////////////////////////////////////////////////////////////// 
+.................... ////        (C) Copyright 1996, 2013 Custom Computer Services          //// 
+.................... //// This source code may only be used by licensed users of the CCS C  //// 
+.................... //// compiler.  This source code may only be distributed to other      //// 
+.................... //// licensed users of the CCS C compiler.  No other use, reproduction //// 
+.................... //// or distribution is permitted without written permission.          //// 
+.................... //// Derivative programs created using this software in object code    //// 
+.................... //// form are not restricted in any way.                               //// 
+.................... /////////////////////////////////////////////////////////////////////////// 
+.................... #device PIC16F877A 
+0004:  CLRF   77
+0005:  CLRF   78
+0006:  MOVF   30,W
+0007:  BCF    03.0
+0008:  BTFSC  31.0
+0009:  ADDWF  77,F
+000A:  RRF    77,F
+000B:  RRF    78,F
+000C:  BTFSC  31.1
+000D:  ADDWF  77,F
+000E:  RRF    77,F
+000F:  RRF    78,F
+0010:  BTFSC  31.2
+0011:  ADDWF  77,F
+0012:  RRF    77,F
+0013:  RRF    78,F
+0014:  BTFSC  31.3
+0015:  ADDWF  77,F
+0016:  RRF    77,F
+0017:  RRF    78,F
+0018:  BTFSC  31.4
+0019:  ADDWF  77,F
+001A:  RRF    77,F
+001B:  RRF    78,F
+001C:  BTFSC  31.5
+001D:  ADDWF  77,F
+001E:  RRF    77,F
+001F:  RRF    78,F
+0020:  BTFSC  31.6
+0021:  ADDWF  77,F
+0022:  RRF    77,F
+0023:  RRF    78,F
+0024:  BTFSC  31.7
+0025:  ADDWF  77,F
+0026:  RRF    77,F
+0027:  RRF    78,F
+0028:  BCF    0A.3
+0029:  BCF    0A.4
+002A:  GOTO   097 (RETURN)
+002B:  MOVF   31,W
+002C:  CLRF   78
+002D:  SUBWF  30,W
+002E:  BTFSC  03.0
+002F:  GOTO   033
+0030:  MOVF   30,W
+0031:  MOVWF  77
+0032:  GOTO   03F
+0033:  CLRF   77
+0034:  MOVLW  08
+0035:  MOVWF  32
+0036:  RLF    30,F
+0037:  RLF    77,F
+0038:  MOVF   31,W
+0039:  SUBWF  77,W
+003A:  BTFSC  03.0
+003B:  MOVWF  77
+003C:  RLF    78,F
+003D:  DECFSZ 32,F
+003E:  GOTO   036
+003F:  RETURN
+....................  
+.................... #list 
+....................  
+.................... #fuses xt 
+.................... #use delay(clock = 4M) 
+0040:  MOVLW  30
+0041:  MOVWF  04
+0042:  BCF    03.7
+0043:  MOVF   00,W
+0044:  BTFSC  03.2
+0045:  GOTO   054
+0046:  MOVLW  01
+0047:  MOVWF  78
+0048:  CLRF   77
+0049:  DECFSZ 77,F
+004A:  GOTO   049
+004B:  DECFSZ 78,F
+004C:  GOTO   048
+004D:  MOVLW  4A
+004E:  MOVWF  77
+004F:  DECFSZ 77,F
+0050:  GOTO   04F
+0051:  GOTO   052
+0052:  DECFSZ 00,F
+0053:  GOTO   046
+0054:  RETURN
+.................... #byte trisb = 0x86 
+.................... #byte trisc = 0x87 
+.................... #byte portb = 0x06 
+.................... #byte portc = 0x07 
+.................... #bit P1 = portc.0 
+.................... #bit P2 = portc.1 
+.................... #bit UNI = portc.2 
+.................... #bit DEC = portc.3 
+....................  
+.................... void main() { 
+0055:  MOVF   03,W
+0056:  ANDLW  1F
+0057:  MOVWF  03
+0058:  BSF    03.5
+0059:  BSF    1F.0
+005A:  BSF    1F.1
+005B:  BSF    1F.2
+005C:  BCF    1F.3
+005D:  MOVLW  07
+005E:  MOVWF  1C
+005F:  BCF    03.7
+....................    trisb = 0b00000000; 
+0060:  CLRF   06
+....................    trisc = 0b00000011; 
+0061:  MOVLW  03
+0062:  MOVWF  07
+....................     
+....................    int datos[10] = {0b11000000, 0b11111001, 0b10100100, 0b10110000, 0b10011001, 
+....................                     0b10010010, 0b10000010, 0b11111000, 0b10000000, 0b10010000}; 
+0063:  MOVLW  C0
+0064:  BCF    03.5
+0065:  MOVWF  21
+0066:  MOVLW  F9
+0067:  MOVWF  22
+0068:  MOVLW  A4
+0069:  MOVWF  23
+006A:  MOVLW  B0
+006B:  MOVWF  24
+006C:  MOVLW  99
+006D:  MOVWF  25
+006E:  MOVLW  92
+006F:  MOVWF  26
+0070:  MOVLW  82
+0071:  MOVWF  27
+0072:  MOVLW  F8
+0073:  MOVWF  28
+0074:  MOVLW  80
+0075:  MOVWF  29
+0076:  MOVLW  90
+0077:  MOVWF  2A
+....................    int contador = 0; 
+....................    int R, U, D; 
+0078:  CLRF   2B
+....................     
+....................    while(true) { 
+....................       UNI = 1; DEC = 0; 
+0079:  BSF    07.2
+007A:  BCF    07.3
+....................       portb = datos[contador]; 
+007B:  MOVLW  21
+007C:  ADDWF  2B,W
+007D:  MOVWF  04
+007E:  BCF    03.7
+007F:  MOVF   00,W
+0080:  MOVWF  06
+....................       if(P1 == 0) { 
+0081:  BTFSC  07.0
+0082:  GOTO   090
+....................          contador++; 
+0083:  INCF   2B,F
+....................          if(contador == 10) {contador = 0;} 
+0084:  MOVF   2B,W
+0085:  SUBLW  0A
+0086:  BTFSC  03.2
+0087:  CLRF   2B
+....................          portb = datos[contador]; 
+0088:  MOVLW  21
+0089:  ADDWF  2B,W
+008A:  MOVWF  04
+008B:  BCF    03.7
+008C:  MOVF   00,W
+008D:  MOVWF  06
+....................          while(P1 == 0) { } 
+008E:  BTFSS  07.0
+008F:  GOTO   08E
+....................       } 
+....................        
+....................       if(P2 == 0) { 
+0090:  BTFSC  07.1
+0091:  GOTO   0C4
+....................          R = contador * 6; 
+0092:  MOVF   2B,W
+0093:  MOVWF  30
+0094:  MOVLW  06
+0095:  MOVWF  31
+0096:  GOTO   004
+0097:  MOVF   78,W
+0098:  MOVWF  2C
+....................          D = R / 10; 
+0099:  MOVF   2C,W
+009A:  MOVWF  30
+009B:  MOVLW  0A
+009C:  MOVWF  31
+009D:  CALL   02B
+009E:  MOVF   78,W
+009F:  MOVWF  2E
+....................          U = R % 10; 
+00A0:  MOVF   2C,W
+00A1:  MOVWF  30
+00A2:  MOVLW  0A
+00A3:  MOVWF  31
+00A4:  CALL   02B
+00A5:  MOVF   77,W
+00A6:  MOVWF  2D
+....................          for(int t=0; t<30; t++) { 
+00A7:  CLRF   2F
+00A8:  MOVF   2F,W
+00A9:  SUBLW  1D
+00AA:  BTFSS  03.0
+00AB:  GOTO   0C4
+....................             DEC = 1; 
+00AC:  BSF    07.3
+....................             portb = datos[D]; 
+00AD:  MOVLW  21
+00AE:  ADDWF  2E,W
+00AF:  MOVWF  04
+00B0:  BCF    03.7
+00B1:  MOVF   00,W
+00B2:  MOVWF  06
+....................             delay_ms(50); 
+00B3:  MOVLW  32
+00B4:  MOVWF  30
+00B5:  CALL   040
+....................             DEC = 0; 
+00B6:  BCF    07.3
+....................             UNI = 1; 
+00B7:  BSF    07.2
+....................             portb = datos[U]; 
+00B8:  MOVLW  21
+00B9:  ADDWF  2D,W
+00BA:  MOVWF  04
+00BB:  BCF    03.7
+00BC:  MOVF   00,W
+00BD:  MOVWF  06
+....................             delay_ms(50); 
+00BE:  MOVLW  32
+00BF:  MOVWF  30
+00C0:  CALL   040
+....................             UNI = 0; 
+00C1:  BCF    07.2
+00C2:  INCF   2F,F
+00C3:  GOTO   0A8
+....................          } 
+....................       } 
+00C4:  GOTO   079
+....................    } 
+.................... } 
+00C5:  SLEEP
+
+Configuration Fuses:
+   Word  1: 3F71   XT NOWDT PUT BROWNOUT NOLVP NOCPD NOWRT NODEBUG NOPROTECT

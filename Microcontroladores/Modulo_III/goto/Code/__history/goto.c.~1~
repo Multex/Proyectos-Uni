@@ -1,0 +1,33 @@
+#include <16f877a.h>
+#fuses XT
+#use delay(clock=4M)
+/*******************/
+#byte trisb = 0x86
+#byte portb = 0x06
+#byte trisc = 0x87
+#byte portc = 0x07
+/*******************/
+#bit PUL1 = portb.0
+#bit PUL2 = portb.1
+#bit RC0 = portc.0
+#bit RC1 = portc.1
+#bit RC2 = portc.2
+#bit RC3 = portc.3
+/*******************/
+void main(){
+    while(true){
+        if(PUL1 == 1){
+            RC0 = 1;
+            RC1 = 0;
+            RC2 = 0;
+            RC3 = 0;
+        }
+        if(PUL2 == 1){
+            RC0 = 0;
+            RC1 = 1;
+            RC2 = 0;
+            RC3 = 0;
+        }
+    }
+}
+

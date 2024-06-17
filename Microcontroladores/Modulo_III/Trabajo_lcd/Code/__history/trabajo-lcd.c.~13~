@@ -1,0 +1,125 @@
+#include <16f877a.h>
+#fuses XT
+#use delay(clock=4M)
+#include <stdbool.h>
+/*******************/
+#byte trisb = 0x86
+#byte portb = 0x06
+#byte trisc = 0x87
+#byte portc = 0x07
+/*******************/
+#bit C1 = portb.5
+#bit C2 = portb.6
+#bit C3 = portb.7
+#bit F1 = portb.0
+#bit F2 = portb.1
+#bit F3 = portb.2
+#bit F4 = portb.3
+/*******************/
+#define LCD_ENABLE_PIN  PIN_D3
+#define LCD_RS_PIN      PIN_D1
+#define LCD_RW_PIN      PIN_D2
+#define LCD_DATA4       PIN_D4
+#define LCD_DATA5       PIN_D5
+#define LCD_DATA6       PIN_D6
+#define LCD_DATA7       PIN_D7
+#include <lcd.c>
+/*******************/
+int key = 12; //* Keypad (only keys) - Max value: 12
+int digit; //* Numeric value
+int ONES = 0; // Unidades
+int TENS = 0; // Decimas
+int digitFix; //* Fix digits - Para tomar 2 digitos
+bool motorStatus = false; //? false = OFF / true = ON
+byte const motorSteps[5] = {0b00110000, 0b01100000, 0b11000000, 0b10010000, }; // Por alguna razón si solo pongo 4 no funciona, lol
+/*******************/
+void keyDetection(){ //* Used to detect the key pressed
+    C1 = 1;
+    if (F1 == 1){key = 1; digit = 1;}
+    if (F2 == 1){key = 4; digit = 4;}
+    if (F3 == 1){key = 7; digit = 7;}
+    if (F4 == 1){key = 10;} // "*" - Clear
+    C1 = 0;
+
+    C2 = 1;
+    if (F1 == 1){key = 2; digit = 2;}
+    if (F2 == 1){key = 5; digit = 5;}
+    if (F3 == 1){key = 8; digit = 8;}
+    if (F4 == 1){key = 0; digit = 0;}
+    C2 = 0;
+
+    C3 = 1;
+    if (F1 == 1){key = 3; digit = 3;}
+    if (F2 == 1){key = 6; digit = 6;}
+    if (F3 == 1){key = 9; digit = 9;}
+    if (F4 == 1){key = 11;} // "#" - Start
+    C3 = 0;
+}
+
+void motorControl(){ //* Used to control the motor
+    for(int A=0; A < 5; A++){ // Detectar el número de pasos
+        portc = motorSteps[A];
+        delay_ms(70);
+    }
+}
+
+void main(){
+    trisb = 0b00001111;
+    trisc = 0b00000000;
+    portc = 0x00;
+
+    lcd_init();
+
+    // Welcome message
+    lcd_gotoxy(1, 1);
+    lcd_putc("  ENCENDIDO DE  ");
+    lcd_gotoxy(1, 2);
+    lcd_putc("    MOTOR DC    ");
+    delay_ms(3000); // 3 sec
+    lcd_putc("\f");
+
+    while(true){
+        keyDetection();
+        
+        if(key < 10){ //* Si la tecla presionada es un número
+            TENS = ONES;
+            delay_ms(100);
+            ONES = digit;
+            delay_ms(100);
+
+            digitFix = (TENS * 10) + ONES;
+        } 
+        if(key == 11){ //* 11 means "#" -> Start
+            lcd_putc("\f"); // Clear the LCD
+
+            int stableDigit = digitFix; //* Para que no se mueva el valor de digitFix
+            
+            for(int t=0; t < digitFix; t++){
+                motorControl();
+                delay_ms(10);
+            for(int i=0; i < stableDigit; i++){
+                motorControl();
+                
+                lcd_gotoxy(1, 1);
+                printf(lcd_putc, "Motor: On");
+
+                lcd_gotoxy(1, 2);
+                printf(lcd_putc, "Tiempo: %02u", digitFix);
+
+                digitFix--;
+                delay_ms(920); // 1 sec
+            }
+            }
+        }
+
+        // Default message
+        lcd_gotoxy(1, 1);
+        lcd_putc("Motor: Off");
+        lcd_gotoxy(1, 2);
+        printf(lcd_putc, "Tiempo: %02u", digitFix);
+
+        key = 12; // Reset the key
+    }
+}
+
+//TODO: Lógica de motor. Llamar a la función motorControl().

@@ -1,0 +1,82 @@
+#include <16f877a.h>
+#fuses XT
+#use delay(clock=4M)
+/*******************/
+#byte trisb = 0x86
+#byte portb = 0x06
+/*******************/
+#bit C1 = portb.5
+#bit C2 = portb.6
+#bit C3 = portb.7
+#bit F1 = portb.0
+#bit F2 = portb.1
+#bit F3 = portb.2
+#bit F4 = portb.3
+/*******************/
+#define LCD_ENABLE_PIN  PIN_D3
+#define LCD_RS_PIN      PIN_D1
+#define LCD_RW_PIN      PIN_D2
+#define LCD_DATA4       PIN_D4
+#define LCD_DATA5       PIN_D5
+#define LCD_DATA6       PIN_D6
+#define LCD_DATA7       PIN_D7
+#include <lcd.c>
+/*******************/
+char tecla[2];
+
+void keys(){ // Función para detectar teclas
+    while (true){
+        trisb = 0b11100000;
+
+        portb = 0b00001110;
+        delay_ms(10);
+        if (C1 == 0){tecla = "1";}
+        delay_ms(10);
+        if (C2 == 0){tecla = "2";}
+        delay_ms(10);
+        if (C3 == 0){tecla = "3";}
+        delay_ms(10);
+        portb = 0b00001101;
+        delay_ms(10);
+        if (C1 == 0){tecla = "4";}
+        delay_ms(10);
+        if (C2 == 0){tecla = "5";}
+        delay_ms(10);
+        if (C3 == 0){tecla = "6";}
+        delay_ms(10);
+        portb = 0b00001011;
+        delay_ms(10);
+        if (C1 == 0){tecla = "7";}
+        delay_ms(10);
+        if (C2 == 0){tecla = "8";}
+        delay_ms(10);
+        if (C3 == 0){tecla = "9";}
+        delay_ms(10);
+        portb = 0b00000111;
+        delay_ms(10);
+        if (C1 == 0){tecla = "A";}
+        delay_ms(10);
+        if (C2 == 0){tecla = "B";}
+        delay_ms(10);
+        if (C3 == 0){tecla = "C";}
+        delay_ms(10);
+        portb = 0b00001111;
+        delay_ms(10);
+    }
+}
+
+void main(){
+    trisb = 0b11100000;
+
+    lcd_init();
+    lcd_gotoxy(1,1);
+    lcd_putc("TECLADO");
+    
+    while(true){
+        keys();
+
+        lcd_gotoxy(1, 2);
+        printf(lcd_putc, "NUMERO: %02s", tecla);
+
+    }
+}

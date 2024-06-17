@@ -1,0 +1,20 @@
+[PROJECT]
+Target=Pregunta1.hex
+Processor_Text=PIC16F877A
+CCSVersion=5.015
+Compiler=PCM
+[Target Data]
+FileList=Pregunta1.c
+[Directories]
+Include=C:\Program Files (x86)\PICC\Devices\;C:\Program Files (x86)\PICC\Drivers\
+[Pregunta1.c]
+Type=4
+[mru-list]
+1=Pregunta1.c
+[Opened Files]
+1=Pregunta1.c
+2=
+3=
+[Units]
+Count=1
+1=Pregunta1 (main)

@@ -1,0 +1,133 @@
+004-005 @WRITE_PROGRAM_MEMORY8.P1
+004-005 @READ_PROGRAM_MEMORY8.P2
+005     porta
+006.0   F1
+006     portb
+006.1   F2
+006.2   F3
+006.3   F4
+006.5   C1
+006.6   C2
+006.7   C3
+008     PSP_DATA
+015     CCP_1
+015     CCP_1_LOW
+016     CCP_1_HIGH
+01B     CCP_2
+01B     CCP_2_LOW
+01C     CCP_2_HIGH
+020     key
+021     digit
+022     ONES
+023     TENS
+024     digitFix
+025     MAIN.stableDigit
+026     MAIN.i
+027     @MUL88.P1
+027     @PSTRINGCN7_656.P2
+027     @PRINTF_U_656.P3
+027     lcd_init.i
+027     keyDetection.@SCRATCH1
+027     MAIN.@SCRATCH1
+027     @PSTRINGC7_656.@SCRATCH1
+028-02B lcd_init.LCD_INIT_STRING
+028     @MUL88.P1
+028     @PRINTF_U_656.P2
+028     @PSTRINGC7_656.@SCRATCH2
+028     @PSTRINGCN7_656.@SCRATCH1
+029     @DIV88.P1
+029     @PSTRINGC7_656.@SCRATCH3
+029     @PSTRINGCN7_656.@SCRATCH2
+02A     @DIV88.P1
+02A     @PSTRINGC7_656.@SCRATCH4
+02A     @PSTRINGCN7_656.@SCRATCH3
+02B     lcd_putc.c
+02B     @PSTRINGCN7_656.@SCRATCH4
+02B     @DIV88.@SCRATCH1
+02C     @delay_ms1.P1
+02C     lcd_gotoxy.x
+02C     lcd_init.@SCRATCH1
+02D     lcd_gotoxy.y
+02E     lcd_gotoxy.address
+02F     lcd_gotoxy.@SCRATCH1
+030     lcd_send_byte.address
+031     lcd_send_byte.n
+032     lcd_read_byte.low
+032     lcd_send_byte.@SCRATCH1
+033     lcd_read_byte.high
+033     lcd_send_nibble.n
+034     lcd_read_nibble.n
+034     lcd_read_byte.@SCRATCH1
+035     lcd_read_nibble.@SCRATCH1
+077     @SCRATCH
+078     @SCRATCH
+078     _RETURN_
+079     @SCRATCH
+07A     @SCRATCH
+085     trisa
+086     trisb
+09C.6   C1OUT
+09C.7   C2OUT
+10D-10E @WRITE_PROGRAM_MEMORY8.P1
+10D-10E @READ_PROGRAM_MEMORY8.P2
+
+ROM Allocation:
+000004  @const678.call
+00000D  @const680.call
+000016  @const681.call
+000017  @const685.call
+000018  @const688.call
+00001D  @const689.call
+000024  @const698.call
+00002A  @const699.call
+000031  @delay_ms1
+000046  lcd_send_nibble
+000071  lcd_read_nibble
+0000A2  lcd_send_byte
+0000AA  lcd_read_byte
+0000FE  lcd_init
+000144  lcd_gotoxy
+000156  lcd_putc
+000182  @PSTRINGC7_656
+0001D8  keyDetection
+00022E  @MUL88
+000255  motorControl
+000262  @PSTRINGCN7_656
+0002B9  @DIV88
+0002CE  @PRINTF_U_656
+000303  @cinit1
+000303  MAIN
+000311  @cinit2
+
+Project Directory:
+    D:\Universidad\Microcontroladores\Modulo_III\Trabajo_lcd\Code\
+
+Project Files:
+    trabajo-lcd.c                                           [16-Jun-24 18:21  CRC=E873FA97]
+    ..\..\..\..\..\Program Files (x86)\PICC\Devices\16f877a.h [12-Nov-13 14:35  CRC=81334808]
+    ..\..\..\..\..\Program Files (x86)\PICC\Drivers\lcd.c   [19-Sep-13 15:38  CRC=D1A6378A]
+
+Source signature=0CF3B1B3
+
+Units:
+    trabajo-lcd (main)
+
+Compiler Settings:
+    Processor:      PIC16F877A
+    Pointer Size:   16
+    ADC Range:      0-255
+    Opt Level:      9
+    Short,Int,Long: UNSIGNED: 1,8,16
+    Float,Double:   32,32
+
+Output Files:
+    XREF file:   trabajo-lcd.xsym
+    Errors:      trabajo-lcd.err
+    Ext Symbols: trabajo-lcd.esym
+    INHX8:       trabajo-lcd.hex
+    Symbols:     trabajo-lcd.sym
+    List:        trabajo-lcd.lst
+    Debug/COFF:  trabajo-lcd.cof
+    Project:     trabajo-lcd.ccspjt
+    Call Tree:   trabajo-lcd.tre
+    Statistics:  trabajo-lcd.STA
