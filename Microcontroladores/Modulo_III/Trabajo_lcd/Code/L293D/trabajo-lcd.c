@@ -5,8 +5,8 @@
 /*******************/
 #byte trisa = 0x85
 #byte porta = 0x05
-#byte portb = 0x06
 #byte trisb = 0x86
+#byte portb = 0x06
 /*******************/
 #bit C1 = portb.5
 #bit C2 = portb.6
@@ -61,12 +61,12 @@ void keyDetection(){ //* Usado para detectar la tecla presionada
 //!        portc = motorSteps[A];
 //!        delay_ms(80);
 //!    }
-//!}
+//! }
 
 void motorControl(){ //* Usado para controlar el motor
-    porta = 0b00000010; // Manda señal a A6
+    porta = 0b00000010; // Manda señal a A1
     delay_ms(80);
-    porta = 0b00000001; // Manda señal a A
+    porta = 0b00000001; // Manda señal a A0
     delay_ms(80);
 }
 
@@ -95,7 +95,7 @@ void main(){
             delay_ms(100);
 
             digitFix = (TENS * 10) + ONES; //* Para tomar los dos digitos
-        } 
+        }
         if(key == 11){ //* 11 = "#" -> Start | Iniciar
             motorControl(); // Llamamos la funcion para controlar el motor
             lcd_putc("\f"); // Limpiamos el LCD
