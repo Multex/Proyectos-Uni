@@ -44,4 +44,4 @@ El repositorio está hecho para que puedan estudiar lo que realmente se evalúa 
 
 Estos cursos no se pasan solos
 
-![yo:](https://i.imgur.com/GdVX0b4.jpeg)
+![yo:](https://i.imgur.com/GdVX0b4.jpeg) 
