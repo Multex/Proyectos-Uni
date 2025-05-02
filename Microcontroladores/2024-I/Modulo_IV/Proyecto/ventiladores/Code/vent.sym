@@ -1,0 +1,142 @@
+004-005 @WRITE_PROGRAM_MEMORY8.P1
+004-005 @READ_PROGRAM_MEMORY8.P2
+008     PSP_DATA
+008.0   IN1
+008     portd
+008.1   IN2
+008.2   IN3
+008.3   IN4
+008.4   SH
+015     CCP_1_LOW
+015     CCP_1
+016     CCP_1_HIGH
+01B     CCP_2_LOW
+01B     CCP_2
+01C     CCP_2_HIGH
+021-022 MAIN.adcValue1
+023-024 MAIN.adcValue2
+025     MAIN.temp1
+026     MAIN.temp2
+027     MAIN.state
+028-029 @ITOF.P1
+028     lcd_init.i
+028-02B @SFTOI.P1
+028-02B @MULFF.P2
+028     @PRINTF_U_652.P3
+028     @PSTRINGCN7_652.P4
+028     MAIN.@SCRATCH1
+028     @PSTRINGC7_652.@SCRATCH1
+029     @PRINTF_U_652.P1
+029-02C lcd_init.LCD_INIT_STRING
+029     MAIN.@SCRATCH2
+029     @PSTRINGC7_652.@SCRATCH2
+029     @PSTRINGCN7_652.@SCRATCH1
+02A     @DIV88.P1
+02A     MAIN.@SCRATCH3
+02A     @PSTRINGC7_652.@SCRATCH3
+02A     @PSTRINGCN7_652.@SCRATCH2
+02B     @DIV88.P1
+02B     MAIN.@SCRATCH4
+02B     @PSTRINGC7_652.@SCRATCH4
+02B     @PSTRINGCN7_652.@SCRATCH3
+02C-02F @MULFF.P1
+02C-02F @DIVFF.P2
+02C     lcd_putc.c
+02C     @PSTRINGCN7_652.@SCRATCH4
+02C     @DIV88.@SCRATCH1
+02D     @delay_ms1.P1
+02D     lcd_gotoxy.x
+02D     lcd_init.@SCRATCH1
+02E     lcd_gotoxy.y
+02F     lcd_gotoxy.address
+030-033 @DIVFF.P1
+030     lcd_gotoxy.@SCRATCH1
+030     @MULFF.@SCRATCH1
+031     lcd_send_byte.address
+031     @MULFF.@SCRATCH2
+032     lcd_send_byte.n
+032     @MULFF.@SCRATCH3
+033     lcd_read_byte.low
+033     lcd_send_byte.@SCRATCH1
+033     @MULFF.@SCRATCH4
+034     lcd_send_nibble.n
+034     lcd_read_byte.high
+034     @MULFF.@SCRATCH5
+034     @DIVFF.@SCRATCH1
+035     lcd_read_nibble.n
+035     lcd_read_byte.@SCRATCH1
+035     @DIVFF.@SCRATCH2
+036     lcd_read_nibble.@SCRATCH1
+036     @DIVFF.@SCRATCH3
+037     @DIVFF.@SCRATCH4
+038     @DIVFF.@SCRATCH5
+039     @DIVFF.@SCRATCH6
+077     @SCRATCH
+078     @SCRATCH
+078     _RETURN_
+079     @SCRATCH
+07A     @SCRATCH
+088     trisd
+09C.6   C1OUT
+09C.7   C2OUT
+10D-10E @READ_PROGRAM_MEMORY8.P1
+10D-10E @WRITE_PROGRAM_MEMORY8.P2
+
+ROM Allocation:
+000004  @const672.call
+00000D  @const674.call
+000016  @const675.call
+000017  @const686.call
+00001E  @const695.call
+000025  @delay_ms1
+00003A  lcd_send_nibble
+000065  lcd_read_nibble
+000096  lcd_send_byte
+00009E  lcd_read_byte
+0000F2  lcd_init
+000138  lcd_gotoxy
+00014A  lcd_putc
+000176  @PSTRINGC7_652
+0001CC  @ITOF
+0001E9  @MULFF
+00025E  @DIVFF
+000328  @SFTOI
+000347  @PSTRINGCN7_652
+00039E  @DIV88
+0003B3  @PRINTF_U_652
+0003E8  @cinit1
+0003E8  MAIN
+0003F2  @cinit2
+
+Project Directory:
+    D:\Universidad\Microcontroladores\Modulo_IV\ventiladores\Code\
+
+Project Files:
+    vent.c                                                  [07-Jul-24 00:00  CRC=38924922]
+    ..\..\..\..\..\Program Files (x86)\PICC\Devices\16f877a.h [12-Nov-13 14:35  CRC=81334808]
+    ..\..\..\..\..\Program Files (x86)\PICC\Drivers\lcd.c   [19-Sep-13 15:38  CRC=D1A6378A]
+
+Source signature=5D12003E
+
+Units:
+    vent (main)
+
+Compiler Settings:
+    Processor:      PIC16F877A
+    Pointer Size:   16
+    ADC Range:      0-1023
+    Opt Level:      9
+    Short,Int,Long: UNSIGNED: 1,8,16
+    Float,Double:   32,32
+
+Output Files:
+    XREF file:   vent.xsym
+    Errors:      vent.err
+    Ext Symbols: vent.esym
+    INHX8:       vent.hex
+    Symbols:     vent.sym
+    List:        vent.lst
+    Debug/COFF:  vent.cof
+    Project:     vent.ccspjt
+    Call Tree:   vent.tre
+    Statistics:  vent.STA

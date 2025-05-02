@@ -1,6 +1,7 @@
 # EXAMEN DE PROGRAMACIÓN (EC3)
 
-*Hice lo posible para recrear el pdf en un md, para saber que es lo que se supone que se debía hacer para todo este examen!*
+*Hice lo posible para recrear el pdf en un md, para saber que es lo que se supone que se debía hacer para todo este examen.*
+*El archivo está corregido para que sea un 20*
 
 Programe e implemente un sistema de clave, utilizando un keypad de 3 columnas y 4 filas.
 

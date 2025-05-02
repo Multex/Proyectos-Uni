@@ -1,0 +1,59 @@
+#include <16f877a.h>
+#device adc = 10 // SELECCIONA LA RESOLUCIÓN DEL ADC
+#fuses xt
+#use delay(clock = 4M)
+#byte trisc = 0x87
+#byte portc = 0x07
+#bit V1 = portc .0
+#bit V2 = portc .1
+//*************************//
+#define LCD_ENABLE_PIN PIN_B0 ////
+#define LCD_RS_PIN PIN_B1     ////
+#define LCD_RW_PIN PIN_B2     ////
+#define LCD_DATA4 PIN_B4      ////
+#define LCD_DATA5 PIN_B5      ////
+#define LCD_DATA6 PIN_B6
+#define LCD_DATA7 PIN_B7
+#include <lcd.c>
+//*************************//
+void main(){
+    trisc = 0b0000000;
+    portc = 0b0000000;
+    int16 R1, R2, T1, T2;
+    //*************************//
+    lcd_init();
+    setup_adc_ports(all_analog); // CONFIGURAR EL RA0 COMO CANAL ANALÓGICO
+    setup_adc(adc_clock_internal);
+    lcd_gotoxy(1, 1);
+    lcd_putc("CONTROL DE");
+    lcd_gotoxy(1, 2);
+    lcd_putc("TEMPERATURA");
+    delay_ms(1000);
+    lcd_putc("\f"); // BORRAMOS LOS DATOS DEL LCD
+    //*************************//
+    while (true){
+        set_adc_channel(0); // SELECCIONA EL CANAL PARA INICAR LA CONVERSIÓN
+        R1 = read_adc();    // LEER LOS VALORES DE LA RESOLUCIÓN Y ALMACENARLO EN "R1"
+        T1 = (100.0 * R1) / 1023.0;
+        lcd_gotoxy(1, 1);
+        printf(lcd_putc, "TEM_01: %02Lu", T1);
+        if (T1 >= 30){
+            V1 = 1;
+            delay_ms(5000);
+            V1 = 0;
+        }
+        //*************************//
+        set_adc_channel(1); // SELECCIONA EL CANAL PARA INICAR LA CONVERSIÓN
+        R2 = read_adc();    // LEER LOS VALORES DE LA RESOLUCIÓN Y ALMACENARLO EN "R2"
+        T2 = (100.0 * R2) / 1023.0;
+        lcd_gotoxy(1, 2);
+        printf(lcd_putc, "TEM_02: %02Lu", T2);
+        if (T2 >= 50 && T1 >= 50){
+            V2 = 1;
+            V1 = 1;
+            delay_ms(8000);
+            V2 = 0;
+            V1 = 0;
+        }
+    }
+}
