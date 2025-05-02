@@ -22,9 +22,10 @@ graph LR
 
 ```mermaid
 graph LR
-    A[Proyectos] --> B[Código]
-    A --> C[Esquema]
-    A --> D[Documentación]
+    A[Proyectos] --> B[Nombre del proyecto]
+    B --> C[Código]
+    B --> D[Esquema]
+    B --> E[Documentación]
 ```
 
 > ¡Ahora también se usará para documentar proyectos!
