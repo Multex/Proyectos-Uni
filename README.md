@@ -2,7 +2,11 @@
 
 ![asd](https://i.imgur.com/5Wm5kXv.gif)
 
-Hice esto para guardar todo lo relacionado a proyectos/tareas/examenes que se hagan en la universidad.
+Hice esto para guardar todo lo relacionado a proyectos/tareas/examenes que se hagan en la universidad (Sobre cosas programables).
+
+¿Buscas las clases de otros cursos para **estudiar**?  
+¡Revisa esta carpeta de [Google Drive](https://drive.google.com/drive/folders/1qBnM1Sg5pkrwo9YQ-qRUE6BXpDGR_ycd?usp=sharing)!  
+Seguro encontrarás lo que estás buscando.
 
 ## Estructura del repositorio
 
